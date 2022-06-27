@@ -1,4 +1,4 @@
-﻿namespace BookAPI.Models
+﻿namespace BookAPI.Common.Models.DTO
 {
     public class BookDto
     {
