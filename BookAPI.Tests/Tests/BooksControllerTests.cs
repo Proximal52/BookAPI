@@ -45,9 +45,7 @@ namespace BookAPI.Tests.Tests
         public async Task Post_BookData_Created()
         {
             var stringContent = new StringContent(JsonSerializer.Serialize(new BookCreateDto() { Author = "Me", Name = "Book" }));
-
             stringContent.Headers.ContentType = new("application/json");
-
             var response = await _client.PostAsync("/Books", stringContent);
 
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
@@ -56,13 +54,9 @@ namespace BookAPI.Tests.Tests
         [Fact]
         public async Task Post_InvalidBookData_BadRequest()
         {
-            var content = new FormUrlEncodedContent(new[]
-            {
-                new KeyValuePair<string, string>("author", "Me"),
-                new KeyValuePair<string, string>("name", "")
-            });
-
-            var response = await _client.PostAsync("/Books", content);
+            var stringContent = new StringContent(JsonSerializer.Serialize(new BookCreateDto() { Author = "Me", Name = "" }));
+            stringContent.Headers.ContentType = new("application/json");
+            var response = await _client.PostAsync("/Books", stringContent);
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -70,13 +64,9 @@ namespace BookAPI.Tests.Tests
         [Fact]
         public async Task Put_BookData_NoContent()
         {
-            var content = new FormUrlEncodedContent(new[]
-            {
-                new KeyValuePair<string, string>("author", "Me"),
-                new KeyValuePair<string, string>("name", "Book")
-            });
-
-            var response = await _client.PostAsync("/Books/2", content);
+            var stringContent = new StringContent(JsonSerializer.Serialize(new BookCreateDto() { Author = "Me", Name = "Book" }));
+            stringContent.Headers.ContentType = new("application/json");
+            var response = await _client.PutAsync("/Books/2", stringContent);
 
             Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
         }
@@ -84,13 +74,9 @@ namespace BookAPI.Tests.Tests
         [Fact]
         public async Task Put_InvalidBookData_BadRequest()
         {
-            var content = new FormUrlEncodedContent(new[]
-            {
-                new KeyValuePair<string, string>("author", "Me"),
-                new KeyValuePair<string, string>("name", "")
-            });
-
-            var response = await _client.PostAsync("/Books/3", content);
+            var stringContent = new StringContent(JsonSerializer.Serialize(new BookCreateDto() { Author = "Me", Name = "" }));
+            stringContent.Headers.ContentType = new("application/json");
+            var response = await _client.PutAsync("/Books/3", stringContent);
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -98,13 +84,9 @@ namespace BookAPI.Tests.Tests
         [Fact]
         public async Task Put_BookDataWithWrongId_NotFound()
         {
-            var content = new FormUrlEncodedContent(new[]
-{
-                new KeyValuePair<string, string>("author", "Me"),
-                new KeyValuePair<string, string>("name", "Book")
-            });
-
-            var response = await _client.PostAsync("/Books/100", content);
+            var stringContent = new StringContent(JsonSerializer.Serialize(new BookCreateDto() { Author = "Me", Name = "Book" }));
+            stringContent.Headers.ContentType = new("application/json");
+            var response = await _client.PutAsync("/Books/100", stringContent);
 
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
