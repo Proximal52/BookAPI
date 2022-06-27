@@ -7,10 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BookAPI.Common\BookAPI.Common.csproj" />
     <ProjectReference Include="..\BookAPI.DataAccessLayer\BookAPI.DataAccessLayer.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,4 @@
-﻿using BookAPI.DataAccessLayer.Models;
+﻿using BookAPI.Common.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookAPI.DataAccessLayer
@@ -7,14 +7,8 @@ namespace BookAPI.DataAccessLayer
     {
         public DbSet<Book> Books { get; set; }
 
-        public BooksDbContext()
+        public BooksDbContext(DbContextOptions<BooksDbContext> options) : base(options)
         {
-            Database.EnsureCreated();
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=BookStorage;Trusted_Connection=True;");
         }
     }
 }
